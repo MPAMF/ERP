@@ -1,0 +1,44 @@
+Table users {
+  id integer [primary key]
+  first_name varchar [not null]
+  name varchar [not null]
+  email varchar [not null]
+}
+
+Table hospitals {
+  id integer [primary key]
+  name varchar [not null]
+}
+
+Table mutuelles {
+  id integer [primary key]
+  name varchar [not null]
+}
+
+Table medical_acts {
+  id integer [primary key]
+  user_id integer [ref: > users.id]
+  hopital_id integer [ref: > hospitals.id]
+ // examen_id integer [ref: > hospitals.id]
+  mutuelle_id integer [ref: > mutuelles.id]
+  metadata_1 varchar
+  metadata_2 varchar
+  montant_total float [default: 0]
+  prise_en_charge_hopital float [default: 0]
+  prise_en_charge_mutuelle float [default: 0]
+  prise_en_charge_patient float [default: 0]
+  confirmation_mutuelle boolean [default: false]
+  confirmation_rdv boolean [default: false]
+  pourcentage_prise_en_charge integer
+  commentaire text
+  date_creation timestamp [default: `now()`]
+  date_prevue timestamp
+  date_venue timestamp // valide la présence ou non du patient
+}
+
+Table results {
+  id integer [primary key]
+  medical_act_id integer [ref: < medical_acts.id]
+  file_name varchar [not null]
+  file_data bytea [not null]
+}
