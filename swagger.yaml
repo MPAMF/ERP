@@ -11,6 +11,8 @@ tags:
     description: Operations about user
   - name: medical_act
     description: Operations about medical_act
+  - name: medical_act_result
+    description: Operations about medical_act_result
 paths:
   /user:
     get:
@@ -58,6 +60,7 @@ paths:
           required: true
           schema:
             type: integer
+          description: User id
       responses:
         '200':
           description: User details
@@ -79,6 +82,7 @@ paths:
           required: true
           schema:
             type: integer
+          description: User id
       requestBody:
         required: true
         content:
@@ -106,6 +110,7 @@ paths:
           required: true
           schema:
             type: integer
+          description: User id
       responses:
         '204':
           description: User deleted successfully
@@ -114,6 +119,52 @@ paths:
         '500':
           description: Internal server error
 
+  /user/graulande/{id}:
+    get:
+      tags:
+        - user
+      summary: Get a user by GraulandeID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The user graulandeId
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+
+  /user/auth:
+    post:
+      tags:
+        - user
+      summary: Auth user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User is connected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
   /hospital:
     get:
       tags:
@@ -158,6 +209,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Hopital id
           schema:
             type: integer
       responses:
@@ -179,6 +231,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Hopital id
           schema:
             type: integer
       requestBody:
@@ -206,6 +259,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Hopital id
           schema:
             type: integer
       responses:
@@ -260,6 +314,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Mutuelle id
           schema:
             type: integer
       responses:
@@ -281,6 +336,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Mutuelle id
           schema:
             type: integer
       requestBody:
@@ -308,6 +364,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Mutuelle id
           schema:
             type: integer
       responses:
@@ -353,6 +410,27 @@ paths:
           description: Bad request
         '500':
           description: Internal server error
+  /medical_act/user/{id}:
+    get:
+      tags:
+        - medical_act
+      summary: Get a list of medical acts by user id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of medical acts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalAct'
   /medical_act/{id}:
     get:
       tags:
@@ -362,6 +440,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Medical act id
           schema:
             type: integer
       responses:
@@ -383,6 +462,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Medical act id
           schema:
             type: integer
       requestBody:
@@ -410,6 +490,7 @@ paths:
         - name: id
           in: path
           required: true
+          description: Medical act id
           schema:
             type: integer
       responses:
@@ -417,6 +498,142 @@ paths:
           description: Medical act deleted successfully
         '404':
           description: Medical act not found
+        '500':
+          description: Internal server error
+  /medical_act/{id}/results:
+    get:
+      tags:
+        - medical_act_result
+      summary: Get a list of medical act results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medical act id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of medical act results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalActResult'
+    post:
+      tags:
+        - medical_act_result
+      summary: Create a new medical act result
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medical act id
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalActResult'
+      responses:
+        '201':
+          description: Medical act result created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /medical_act/{id}/results/{result_id}:
+    get:
+      tags:
+        - medical_act_result
+      summary: Get a medical results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medical act id
+          schema:
+            type: integer
+        - name: result_id
+          in: path
+          required: true
+          description: Medical act result id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Medical act results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        '404':
+          description: Medical act result not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - medical_act_result
+      summary: Update a medical act result by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medical act id
+          schema:
+            type: integer
+        - name: result_id
+          in: path
+          required: true
+          description: Medical act result id
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalActResult'
+      responses:
+        '200':
+          description: Medical act result updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - medical_act_result
+      summary: Delete a medical act result by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Medical act id
+          schema:
+            type: integer
+        - name: result_id
+          in: path
+          required: true
+          description: Medical act result id
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Medical act result deleted successfully
+        '404':
+          description: Medical act result not found
         '500':
           description: Internal server error
 
@@ -435,9 +652,13 @@ components:
           type: string
         name:
           type: string
-        email:
+        password:
           type: string
-
+        id_graulande:
+          type: string
+        mutuelle_id:
+          type: integer
+          
     Hospital:
       type: object
       properties:
@@ -453,6 +674,19 @@ components:
           type: integer
         name:
           type: string
+
+    MedicalActResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        medical_act_id:
+          type: integer
+        file_name:
+          type: string
+        file_data:
+          type: string
+          format: binary
 
     MedicalAct:
       type: object
@@ -481,6 +715,8 @@ components:
         prise_en_charge_patient:
           type: number
           format: float
+        confirmation_paiement_patient:
+          type: boolean
         confirmation_mutuelle:
           type: boolean
         confirmation_rdv:
@@ -500,4 +736,4 @@ components:
           format: date-time
 
 security:
-  - BearerAuth: []
+  - BearerAuth: [ ]

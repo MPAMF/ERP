@@ -2,7 +2,9 @@ CREATE TABLE "users" (
   "id" integer PRIMARY KEY,
   "first_name" varchar NOT NULL,
   "name" varchar NOT NULL,
-  "email" varchar NOT NULL
+  "password" varchar NOT NULL,
+  "id_graulande" varchar NOT NULL,
+  "mutuelle_id" integer
 );
 
 CREATE TABLE "hospitals" (
@@ -26,6 +28,7 @@ CREATE TABLE "medical_acts" (
   "prise_en_charge_hopital" float DEFAULT 0,
   "prise_en_charge_mutuelle" float DEFAULT 0,
   "prise_en_charge_patient" float DEFAULT 0,
+  "confirmation_paiement_patient" boolean DEFAULT false,
   "confirmation_mutuelle" boolean DEFAULT false,
   "confirmation_rdv" boolean DEFAULT false,
   "pourcentage_prise_en_charge" integer,
@@ -41,6 +44,8 @@ CREATE TABLE "results" (
   "file_name" varchar NOT NULL,
   "file_data" bytea NOT NULL
 );
+
+ALTER TABLE "users" ADD FOREIGN KEY ("mutuelle_id") REFERENCES "mutuelles" ("id");
 
 ALTER TABLE "medical_acts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 

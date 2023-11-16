@@ -2,7 +2,8 @@ Table users {
   id integer [primary key]
   first_name varchar [not null]
   name varchar [not null]
-  email varchar [not null]
+  id_graulande varchar [not null]
+  mutuelle_id integer [ref: > mutuelles.id]
 }
 
 Table hospitals {
@@ -27,6 +28,7 @@ Table medical_acts {
   prise_en_charge_hopital float [default: 0]
   prise_en_charge_mutuelle float [default: 0]
   prise_en_charge_patient float [default: 0]
+  confirmation_paiement_patient boolean [default: false]
   confirmation_mutuelle boolean [default: false]
   confirmation_rdv boolean [default: false]
   pourcentage_prise_en_charge integer
