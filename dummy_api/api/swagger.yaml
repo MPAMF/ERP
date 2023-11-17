@@ -1,0 +1,818 @@
+openapi: 3.0.0
+info:
+  title: Medical Records API
+  version: 1.0.0
+servers:
+- url: /
+security:
+- BearerAuth: []
+tags:
+- name: user
+  description: Operations about user
+- name: hospital
+  description: Operations about hospital
+- name: mutuelle
+  description: Operations about user
+- name: medical_act
+  description: Operations about medical_act
+- name: medical_act_result
+  description: Operations about medical_act_result
+paths:
+  /user:
+    get:
+      tags:
+      - user
+      summary: Get a list of users
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+    post:
+      tags:
+      - user
+      summary: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /user/{id}:
+    get:
+      tags:
+      - user
+      summary: Get a user by ID
+      parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - user
+      summary: Update a user by ID
+      parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - user
+      summary: Delete a user by ID
+      parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: User deleted successfully
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+  /user/graulande/{id}:
+    get:
+      tags:
+      - user
+      summary: Get a user by GraulandeID
+      parameters:
+      - name: id
+        in: path
+        description: The user graulandeId
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+  /user/auth:
+    post:
+      tags:
+      - user
+      summary: Auth user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: User is connected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /hospital:
+    get:
+      tags:
+      - hospital
+      summary: Get a list of hospitals
+      responses:
+        "200":
+          description: List of hospitals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hospital'
+                x-content-type: application/json
+    post:
+      tags:
+      - hospital
+      summary: Create a new hospital
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+        required: true
+      responses:
+        "201":
+          description: Hospital created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /hospital/{id}:
+    get:
+      tags:
+      - hospital
+      summary: Get a hospital by ID
+      parameters:
+      - name: id
+        in: path
+        description: Hopital id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Hospital details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        "404":
+          description: Hospital not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - hospital
+      summary: Update a hospital by ID
+      parameters:
+      - name: id
+        in: path
+        description: Hopital id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hospital'
+        required: true
+      responses:
+        "200":
+          description: Hospital updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hospital'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - hospital
+      summary: Delete a hospital by ID
+      parameters:
+      - name: id
+        in: path
+        description: Hopital id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Hospital deleted successfully
+        "404":
+          description: Hospital not found
+        "500":
+          description: Internal server error
+  /mutuelle:
+    get:
+      tags:
+      - mutuelle
+      summary: Get a list of mutuelles
+      responses:
+        "200":
+          description: List of mutuelles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mutuelle'
+                x-content-type: application/json
+    post:
+      tags:
+      - mutuelle
+      summary: Create a new mutuelle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mutuelle'
+        required: true
+      responses:
+        "201":
+          description: Mutuelle created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mutuelle'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /mutuelle/{id}:
+    get:
+      tags:
+      - mutuelle
+      summary: Get a mutuelle by ID
+      parameters:
+      - name: id
+        in: path
+        description: Mutuelle id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Mutuelle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mutuelle'
+        "404":
+          description: Mutuelle not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - mutuelle
+      summary: Update a mutuelle by ID
+      parameters:
+      - name: id
+        in: path
+        description: Mutuelle id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mutuelle'
+        required: true
+      responses:
+        "200":
+          description: Mutuelle updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mutuelle'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - mutuelle
+      summary: Delete a mutuelle by ID
+      parameters:
+      - name: id
+        in: path
+        description: Mutuelle id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Mutuelle deleted successfully
+        "404":
+          description: Mutuelle not found
+        "500":
+          description: Internal server error
+  /medical_act:
+    get:
+      tags:
+      - medical_act
+      summary: Get a list of medical acts
+      responses:
+        "200":
+          description: List of medical acts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalAct'
+                x-content-type: application/json
+    post:
+      tags:
+      - medical_act
+      summary: Create a new medical act
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalAct'
+        required: true
+      responses:
+        "201":
+          description: Medical act created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalAct'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /medical_act/user/{id}:
+    get:
+      tags:
+      - medical_act
+      summary: Get a list of medical acts by user id
+      parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: List of medical acts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalAct'
+                x-content-type: application/json
+  /medical_act/{id}:
+    get:
+      tags:
+      - medical_act
+      summary: Get a medical act by ID
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Medical act details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalAct'
+        "404":
+          description: Medical act not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - medical_act
+      summary: Update a medical act by ID
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalAct'
+        required: true
+      responses:
+        "200":
+          description: Medical act updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalAct'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - medical_act
+      summary: Delete a medical act by ID
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Medical act deleted successfully
+        "404":
+          description: Medical act not found
+        "500":
+          description: Internal server error
+  /medical_act/{id}/results:
+    get:
+      tags:
+      - medical_act_result
+      summary: Get a list of medical act results
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: List of medical act results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalActResult'
+                x-content-type: application/json
+    post:
+      tags:
+      - medical_act_result
+      summary: Create a new medical act result
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalActResult'
+        required: true
+      responses:
+        "201":
+          description: Medical act result created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+  /medical_act/{id}/results/{result_id}:
+    get:
+      tags:
+      - medical_act_result
+      summary: Get a medical results
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: result_id
+        in: path
+        description: Medical act result id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Medical act results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        "404":
+          description: Medical act result not found
+        "500":
+          description: Internal server error
+    put:
+      tags:
+      - medical_act_result
+      summary: Update a medical act result by ID
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: result_id
+        in: path
+        description: Medical act result id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalActResult'
+        required: true
+      responses:
+        "200":
+          description: Medical act result updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalActResult'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    delete:
+      tags:
+      - medical_act_result
+      summary: Delete a medical act result by ID
+      parameters:
+      - name: id
+        in: path
+        description: Medical act id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: result_id
+        in: path
+        description: Medical act result id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Medical act result deleted successfully
+        "404":
+          description: Medical act result not found
+        "500":
+          description: Internal server error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        id_graulande:
+          type: string
+        mutuelle_id:
+          type: integer
+      example:
+        password: password
+        id_graulande: id_graulande
+        name: name
+        id: 0
+        first_name: first_name
+        mutuelle_id: 6
+    Hospital:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      example:
+        name: name
+        id: 0
+    Mutuelle:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      example:
+        name: name
+        id: 0
+    MedicalActResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        medical_act_id:
+          type: integer
+        file_name:
+          type: string
+        file_data:
+          type: string
+          format: binary
+      example:
+        medical_act_id: 6
+        file_name: file_name
+        id: 0
+        file_data: ""
+    MedicalAct:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        hospital_id:
+          type: integer
+        mutuelle_id:
+          type: integer
+        metadata_1:
+          type: string
+        metadata_2:
+          type: string
+        montant_total:
+          type: number
+          format: float
+        prise_en_charge_hopital:
+          type: number
+          format: float
+        prise_en_charge_mutuelle:
+          type: number
+          format: float
+        prise_en_charge_patient:
+          type: number
+          format: float
+        confirmation_paiement_patient:
+          type: boolean
+        confirmation_mutuelle:
+          type: boolean
+        confirmation_rdv:
+          type: boolean
+        pourcentage_prise_en_charge:
+          type: integer
+        commentaire:
+          type: string
+        date_creation:
+          type: string
+          format: date-time
+        date_prevue:
+          type: string
+          format: date-time
+        date_venue:
+          type: string
+          format: date-time
+      example:
+        confirmation_paiement_patient: true
+        prise_en_charge_patient: 9.301444
+        confirmation_rdv: true
+        hospital_id: 1
+        pourcentage_prise_en_charge: 3
+        mutuelle_id: 5
+        date_creation: 2000-01-23T04:56:07.000+00:00
+        date_prevue: 2000-01-23T04:56:07.000+00:00
+        user_id: 6
+        montant_total: 5.637377
+        confirmation_mutuelle: true
+        date_venue: 2000-01-23T04:56:07.000+00:00
+        metadata_2: metadata_2
+        metadata_1: metadata_1
+        id: 0
+        prise_en_charge_mutuelle: 7.0614014
+        commentaire: commentaire
+        prise_en_charge_hopital: 2.302136
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
