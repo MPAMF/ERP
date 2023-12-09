@@ -4,6 +4,7 @@ import (
 	swagger "dummy_api/go"
 	"flag"
 	"fmt"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 )
@@ -20,5 +21,6 @@ func main() {
 
 	// Use the selected port for the server
 	addr := fmt.Sprintf(":%d", *port)
-	log.Fatal(http.ListenAndServe(addr, router))
+	handler := cors.Default().Handler(router)
+	log.Fatal(http.ListenAndServe(addr, handler))
 }
