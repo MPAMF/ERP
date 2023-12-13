@@ -40,7 +40,7 @@ Table medical_acts {
 
 Table results {
   id integer [primary key]
-  medical_act_id integer [ref: < medical_acts.id]
+  medical_act_id integer [ref: > medical_acts.id]
   file_name varchar [not null]
   file_data bytea [not null]
 }
