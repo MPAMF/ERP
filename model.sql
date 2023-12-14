@@ -53,4 +53,4 @@ ALTER TABLE "medical_acts" ADD FOREIGN KEY ("hopital_id") REFERENCES "hospitals"
 
 ALTER TABLE "medical_acts" ADD FOREIGN KEY ("mutuelle_id") REFERENCES "mutuelles" ("id");
 
-ALTER TABLE "medical_acts" ADD FOREIGN KEY ("id") REFERENCES "results" ("medical_act_id");
+ALTER TABLE "results" ADD FOREIGN KEY ("medical_act_id") REFERENCES "medical_acts" ("id");
